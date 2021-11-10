@@ -16,7 +16,7 @@ Copy Tezos.lua to your MoneyMoney Extensions folder.
 ## Account Setup
 
 Add a new account (type "Tezos").  
-**Use your Ethererum adresses coma seperated as user name**  
-`0x661d60c7D102aDd7d4D209911CFE146f1a065B23, 0x535367bc1f62049dd1705bc872591f7da2a7d8d8` (example)
+**Use your Tezos adresses coma seperated as user name**  
+`tz1d8SMQTY56YRsCEa5UZNnKgWe2yP7obxKs, tz1gi7MswPthgpuTDrV9fC9LU1wMXcAo6gLG` (example)
 
 **Use anything as password**  
