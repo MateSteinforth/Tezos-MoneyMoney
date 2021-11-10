@@ -36,7 +36,6 @@ WebBanking{
 }
 
 local xtzAddresses
-local etherscanApiKey
 local connection = Connection()
 local currency = "EUR" -- fixme: make dynamik if MM enables input field
 
