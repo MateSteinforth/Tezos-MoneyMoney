@@ -3,12 +3,10 @@ Fetches amount and value of privately held Tezos address via tzkt.io and returns
 This can be also be used to track your cold storage.
 
 ## Extension Setup
-Download Tezos.lua from here
-
-Find your MoneyMoney Extensions folder via Help/Show Database in Finder.
-Copy Tezos.lua to your MoneyMoney Extensions folder.
-
-(For now) allow unsigned extensions via Preferences/Extensions/Verify digital signatures
+* Download Tezos.lua from here
+* Find your MoneyMoney Extensions folder via Help/Show Database in Finder.
+* Copy Tezos.lua to your MoneyMoney Extensions folder.
+* (For now) allow unsigned extensions via Preferences/Extensions/Verify digital signatures...
 
 **Note:** This extension requires MoneyMoney **Version 2.2.18** or newer.
 
