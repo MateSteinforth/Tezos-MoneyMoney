@@ -12,8 +12,7 @@ This can be also be used to track your cold storage.
 
 ## Account Setup
 
-Add a new account (type "Tezos").  
-**Use your Tezos adresses coma seperated as user name**  
+* Add a new account (type "Tezos").  
+* Use your Tezos adresses coma seperated as user name
 `tz1d8SMQTY56YRsCEa5UZNnKgWe2yP7obxKs, tz1gi7MswPthgpuTDrV9fC9LU1wMXcAo6gLG` (example)
-
-**Use anything as password**  
+* Use anything as password
