@@ -1,7 +1,6 @@
 # Tezos-MoneyMoney
-Fetches amount and value of privately held Ethereum address via etherscan.io and returns it as a security.  
+Fetches amount and value of privately held Tezos address via tzkt.io and returns it as a security.  
 This can be also be used to track your cold storage.
-
 
 ## Extension Setup
 Download Tezos.lua from here
