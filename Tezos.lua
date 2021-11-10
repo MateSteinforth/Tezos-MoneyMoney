@@ -1,6 +1,6 @@
 -- Inofficial Tezos Extension for MoneyMoney
 -- Fetches Tezos quantity for address via https://tzkt.io/ API
--- Fetches Ether price in EUR via cryptocompare API
+-- Fetches Tezos price in EUR via cryptocompare API
 -- Returns cryptoassets as securities
 --
 -- Username: Tezos Adresses comma seperated
