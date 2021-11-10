@@ -1,14 +1,14 @@
--- Inofficial Ethereum Extension for MoneyMoney
--- Fetches Ether quantity for address via etherscan API
+-- Inofficial Tezos Extension for MoneyMoney
+-- Fetches Tezos quantity for address via https://tzkt.io/ API
 -- Fetches Ether price in EUR via cryptocompare API
 -- Returns cryptoassets as securities
 --
--- Username: Ethereum Adresses comma seperated
--- Password: Etherscan API-Key
+-- Username: Tezos Adresses comma seperated
+-- Password: anything
 
 -- MIT License
 
--- Copyright (c) 2017 Jacubeit
+-- Copyright (c) 2021 Mate Steinforth
 
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
@@ -31,28 +31,27 @@
 
 WebBanking{
   version = 0.1,
-  description = "Include your Ether as cryptoportfolio in MoneyMoney by providing a Etheradresses (usernme, comma seperated) and etherscan-API-Key (Password)",
-  services= { "Ethereum" }
+  description = "Include your Tezos as cryptoportfolio in MoneyMoney by providing a Tezos Address.",
+  services= { "Tezos" }
 }
 
-local ethAddresses
+local xtzAddresses
 local etherscanApiKey
 local connection = Connection()
 local currency = "EUR" -- fixme: make dynamik if MM enables input field
 
 function SupportsBank (protocol, bankCode)
-  return protocol == ProtocolWebBanking and bankCode == "Ethereum"
+  return protocol == ProtocolWebBanking and bankCode == "Tezos"
 end
 
 function InitializeSession (protocol, bankCode, username, username2, password, username3)
-  ethAddresses = username:gsub("%s+", "")
-  etherscanApiKey = password
+    xtzAddresses = username:gsub("%s+", "")
 end
 
 function ListAccounts (knownAccounts)
   local account = {
-    name = "Ethereum",
-    accountNumber = "Crypto Asset Ethereum",
+    name = "Tezos",
+    accountNumber = "Crypto Asset Tezos",
     currency = currency,
     portfolio = true,
     type = "AccountTypePortfolio"
@@ -63,17 +62,17 @@ end
 
 function RefreshAccount (account, since)
   local s = {}
-  prices = requestEthPrice()
+  prices = requestXTZPrice()
 
-  for address in string.gmatch(ethAddresses, '([^,]+)') do
-    weiQuantity = requestWeiQuantityForEthAddress(address)
-    ethQuantity = convertWeiToEth(weiQuantity)
+  for address in string.gmatch(xtzAddresses, '([^,]+)') do
+    XtzQuantity = requestXtzBalance(address)
+    FXtzQuantity = convertBalanceToXtz(XtzQuantity)
 
     s[#s+1] = {
       name = address,
       currency = nil,
       market = "cryptocompare",
-      quantity = ethQuantity,
+      quantity = FXtzQuantity,
       price = prices["EUR"],
     }
   end
@@ -86,36 +85,32 @@ end
 
 
 -- Querry Functions
-function requestEthPrice()
+function requestXTZPrice()
   content = connection:request("GET", cryptocompareRequestUrl(), {})
   json = JSON(content)
 
   return json:dictionary()
 end
 
-function requestWeiQuantityForEthAddress(ethAddress)
+function requestXtzBalance(ethAddress)
   content = connection:request("GET", etherscanRequestUrl(ethAddress), {})
-  json = JSON(content)
-
-  return json:dictionary()["result"]
+  return content
 end
 
 
 -- Helper Functions
-function convertWeiToEth(wei)
-  return wei / 1000000000000000000 
+function convertBalanceToXtz(xtz)
+  return xtz / 1000000 
 end
 
 function cryptocompareRequestUrl()
-  return "https://min-api.cryptocompare.com/data/price?fsym=ETH&tsyms=EUR,USD"
+  return "https://min-api.cryptocompare.com/data/price?fsym=XTZ&tsyms=EUR,USD"
 end 
 
 function etherscanRequestUrl(ethAddress)
-  etherscanRoot = "https://api.etherscan.io/api?"
-  params = "&module=account&action=balance&tag=latest"
-  address = "&address=" .. ethAddress
-  apiKey = "&apikey=" .. etherscanApiKey
+  apiRoot = "https://api.tzkt.io/v1/accounts/" 
+  balance = ethAddress .. "/balance"
 
-  return etherscanRoot .. params .. address .. apiKey
+  return apiRoot .. balance
 end
 
